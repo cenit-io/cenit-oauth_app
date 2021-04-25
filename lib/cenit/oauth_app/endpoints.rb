@@ -76,19 +76,7 @@ module Cenit
       end
 
       def default_url(default_url)
-        setup do
-          app = self.app
-          if (default_uri = ENV["#{self}:default_uri"].presence || default_url)
-            config = app.configuration
-            redirect_uris = config.redirect_uris || []
-            unless redirect_uris.include?(default_uri)
-              redirect_uris << default_uri
-              config.redirect_uris = redirect_uris
-              app.save
-            end
-          end
-          puts("#{self}:redirect_uris", JSON.pretty_generate(app.configuration.redirect_uris))
-        end
+        default_redirect_uris << -> { ENV["#{self}:default_uri"].presence || default_url }
       end
     end
   end

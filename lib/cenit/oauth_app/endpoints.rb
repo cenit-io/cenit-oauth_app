@@ -65,7 +65,8 @@ module Cenit
               render json: {
                 access_token: auth.access_token,
                 expiration_date: (auth.authorized_at || Time.now) + (auth.token_span || 0),
-                id_token: auth.id_token
+                id_token: auth.id_token,
+                host: Cenit.homepage
               }
               auth.destroy
             else
